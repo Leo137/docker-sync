@@ -190,7 +190,8 @@ module DockerSync
             system(cmd) || raise('Precopy failed')
 
             say_status 'ok', "creating #{container_name} container", :white if @options['verbose']
-            cmd = "docker run -p '#{@options['sync_host_ip']}::#{UNISON_CONTAINER_PORT}' -v #{volume_name}:#{@options['dest']} -e APP_VOLUME=#{@options['dest']} #{tz_expression} #{additional_docker_env} #{run_privileged} --name #{container_name} -d #{@docker_image}"
+            cmd = "docker run -p '#{@options['sync_host_ip']}:#{UNISON_CONTAINER_PORT}:#{UNISON_CONTAINER_PORT}' -v #{volume_name}:#{@options['dest']} -e APP_VOLUME=#{@options['dest']} #{tz_expression} #{additional_docker_env} #{run_privileged} --name #{container_name} -d #{@docker_image}"
+	    say_status 'cmd', cmd
           else
             say_status 'ok', "starting #{container_name} container", :white if @options['verbose']
             cmd = "docker start #{container_name} && docker exec #{container_name} supervisorctl restart unison"
