@@ -1,3 +1,15 @@
+# About this branch
+
+Provides a fix for the Docker 18.09.1 version unison sync strategy, in which the service doesnt bind a port at the host client, causing connection with unison to fail. Now sync_host_ip is mounted for the host too, ie: 5000:5000/tcp
+
+```
+cmd = "docker run -p '#{@options['sync_host_ip']}:#{UNISON_CONTAINER_PORT}:#{UNISON_CONTAINER_PORT}' -v #{volume_name}:#{@options['dest']} -e APP_VOLUME=#{@options['dest']} #{tz_expression} #{additional_docker_env} #{run_privileged} --name #{container_name} -d #{@docker_image}"
+```
+
+-------------------------
+
+# Original README
+
 [![Gem Version](https://badge.fury.io/rb/docker-sync.svg)](https://badge.fury.io/rb/docker-sync) [![Build Status](https://travis-ci.org/EugenMayer/docker-sync.svg?branch=master)](https://travis-ci.org/EugenMayer/docker-sync) [![Join the chat at https://gitter.im/EugenMayer/docker-sync](https://badges.gitter.im/EugenMayer/docker-sync.svg)](https://gitter.im/EugenMayer/docker-sync)
 <a href="https://twitter.com/intent/tweet?text=Looking+to+supercharge+your+docker-based+development+under+%23macOS+-+check+%40docker-sync+and+get+your+native+speed+back&url=http%3A%2F%2Fdocker-sync.io&hashtags=docker-sync+ma" target="_blank">
   <img src="http://jpillora.com/github-twitter-button/img/tweet.png"
